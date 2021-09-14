@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/MovieDetailsPage/MovieDetailsPage.css"],"names":[],"mappings":"AAAA,SACE,YACF","file":"3.d0003ae0.chunk.css","sourcesContent":[".details {\r\n  display: flex;\r\n}\r\n"]}
