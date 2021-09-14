@@ -10,6 +10,12 @@ class HomePage extends React.Component {
 
   async componentDidMount() {
     this.mounted = true;
+
+    localStorage.setItem(
+      "movies",
+      JSON.stringify({ query: "", returnPath: "/" })
+    );
+
     getTrending("movie", "day").then((apiOutput) => {
       //console.log(apiOutput.results);
       if (this.mounted) this.setState({ movies: apiOutput.results });

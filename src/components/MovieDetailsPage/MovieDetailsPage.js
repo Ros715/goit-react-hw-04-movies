@@ -10,8 +10,6 @@ class MovieDetailsPage extends React.Component {
     movie: {},
   };
   mounted = false;
-  //path = this.props.location.pathname.split("/");
-  //movieId = this.path[2];
 
   async componentDidMount() {
     //console.log("#1", this.props.match.params);
@@ -35,7 +33,9 @@ class MovieDetailsPage extends React.Component {
         <>
           <br />
           <button>
-            <Link to="/">Go back</Link>
+            <Link to={JSON.parse(localStorage.getItem("movies")).returnPath}>
+              Go back
+            </Link>
           </button>
           <br />
           <br />
@@ -48,7 +48,7 @@ class MovieDetailsPage extends React.Component {
             </div>
             <div>
               <h3>{`${this.state.movie.title} (${this.state.movie.release_date})`}</h3>
-              <p>{`User Score: ${this.state.movie.popularity}%`}</p>
+              <p>{`User Score: ${Math.round(this.state.movie.popularity)}%`}</p>
               <h4>Overview</h4>
               <p>{this.state.movie.overview}</p>
               <h4>Genres</h4>

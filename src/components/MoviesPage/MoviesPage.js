@@ -8,12 +8,38 @@ class MoviesPage extends React.Component {
     query: "",
   };
 
+  async componentDidMount() {
+    const x = localStorage.getItem("movies");
+    if (x) {
+      const y = JSON.parse(x);
+      y.returnPath = "/movies";
+      localStorage.setItem("movies", JSON.stringify(y));
+      //console.log(y);
+      if (y.query.length > 0) {
+        getMoviesByQuery(y.query).then((apiOutput) => {
+          //console.log(apiOutput.results);
+          this.setState({ movies: apiOutput.results, query: y.query });
+        });
+      }
+    }
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
-    getMoviesByQuery(this.state.query).then((apiOutput) => {
-      //console.log(apiOutput.results);
-      this.setState({ movies: apiOutput.results });
-    });
+
+    localStorage.setItem(
+      "movies",
+      JSON.stringify({ query: this.state.query, returnPath: "/movies" })
+    );
+
+    if (this.state.query.length > 0) {
+      getMoviesByQuery(this.state.query).then((apiOutput) => {
+        //console.log(apiOutput.results);
+        this.setState({ movies: apiOutput.results });
+      });
+    } else {
+      this.setState({ movies: [] });
+    }
   };
 
   render() {
@@ -23,7 +49,7 @@ class MoviesPage extends React.Component {
           <input
             onChange={(e) => {
               //console.log("name", e.currentTarget.value);
-              this.setState({ query: e.currentTarget.value });
+              this.setState({ query: e.currentTarget.value.trim() });
             }}
             type="text"
             autoComplete="off"
