@@ -9,16 +9,19 @@ class MoviesPage extends React.Component {
   };
 
   async componentDidMount() {
-    const x = localStorage.getItem("movies");
-    if (x) {
-      const y = JSON.parse(x);
-      y.returnPath = "/movies";
-      localStorage.setItem("movies", JSON.stringify(y));
-      //console.log(y);
-      if (y.query.length > 0) {
-        getMoviesByQuery(y.query).then((apiOutput) => {
+    const storedTxt = localStorage.getItem("movies");
+    if (storedTxt) {
+      const storedObject = JSON.parse(storedTxt);
+      storedObject.returnPath = "/movies";
+      localStorage.setItem("movies", JSON.stringify(storedObject));
+      //console.log(storedObject);
+      if (storedObject.query.length > 0) {
+        getMoviesByQuery(storedObject.query).then((apiOutput) => {
           //console.log(apiOutput.results);
-          this.setState({ movies: apiOutput.results, query: y.query });
+          this.setState({
+            movies: apiOutput.results,
+            query: storedObject.query,
+          });
         });
       }
     }

@@ -7,6 +7,7 @@ https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&pag
 */
 
 export default function getMoviesByQuery(query) {
-  const url = `${BASE_URL}/search/movie/?query=${query}&api_key=${myKey}`;
+  const url = `${BASE_URL}/search/movie?query=${query}&api_key=${myKey}`;
+  //console.log(url);
   return fetch(url).then((response) => response.json());
 }

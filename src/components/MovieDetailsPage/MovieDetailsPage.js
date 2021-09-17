@@ -43,7 +43,7 @@ class MovieDetailsPage extends React.Component {
             <div>
               <img
                 src={`${BASE_URL}/t/p/w400${this.state.movie.backdrop_path}`}
-                alt=""
+                alt="No image in the data base"
               />
             </div>
             <div>

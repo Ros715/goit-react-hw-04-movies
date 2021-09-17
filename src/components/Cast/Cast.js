@@ -34,7 +34,7 @@ class Cast extends React.Component {
                   {actor.profile_path ? (
                     <img
                       src={`${BASE_URL}/t/p/w200${actor.profile_path}`}
-                      alt=""
+                      alt="No image in the data base"
                     />
                   ) : (
                     <p>No image for this actor</p>
