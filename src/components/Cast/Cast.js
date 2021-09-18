@@ -18,12 +18,11 @@ class Cast extends React.Component {
   }
 
   componentWillUnmount() {
-    //console.log("unmounted");
     this.mounted = false;
   }
 
   render() {
-    const BASE_URL = "https://image.tmdb.org"; /*https://www.themoviedb.org*/
+    const IMAGE_URL = "https://image.tmdb.org"; /*https://www.themoviedb.org*/
     return (
       this.mounted && (
         <div>
@@ -33,8 +32,8 @@ class Cast extends React.Component {
                 <li key={actor.id}>
                   {actor.profile_path ? (
                     <img
-                      src={`${BASE_URL}/t/p/w200${actor.profile_path}`}
-                      alt="No image in the data base"
+                      src={`${IMAGE_URL}/t/p/w200${actor.profile_path}`}
+                      alt="No in the data base"
                     />
                   ) : (
                     <p>No image for this actor</p>

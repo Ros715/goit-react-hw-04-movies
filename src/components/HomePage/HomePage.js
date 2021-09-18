@@ -11,19 +11,17 @@ class HomePage extends React.Component {
   async componentDidMount() {
     this.mounted = true;
 
-    localStorage.setItem(
+    /*localStorage.setItem(
       "movies",
       JSON.stringify({ query: "", returnPath: "/" })
-    );
+    );*/
 
     getTrending("movie", "day").then((apiOutput) => {
-      //console.log(apiOutput.results);
       if (this.mounted) this.setState({ movies: apiOutput.results });
     });
   }
 
   componentWillUnmount() {
-    //console.log("unmounted");
     this.mounted = false;
   }
 
@@ -36,7 +34,15 @@ class HomePage extends React.Component {
             {this.state.movies.map((movie) => {
               return (
                 <li key={movie.id}>
-                  <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+                  <Link
+                    to={{
+                      pathname: `/movies/${movie.id}`,
+                      search: "?",
+                      state: { from: this.props.location },
+                    }}
+                  >
+                    {movie.title}
+                  </Link>
                 </li>
               );
             })}

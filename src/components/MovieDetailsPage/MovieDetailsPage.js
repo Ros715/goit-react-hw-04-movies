@@ -10,41 +10,45 @@ class MovieDetailsPage extends React.Component {
     movie: {},
   };
   mounted = false;
+  goBackInfo = {
+    pathname: this.props.location.state.from.pathname,
+    search: this.props.location.search,
+  };
 
   async componentDidMount() {
-    //console.log("#1", this.props.match.params);
     this.mounted = true;
     getMovieById(this.props.match.params.movieId).then((apiOutput) => {
-      //console.log(apiOutput);
       if (this.mounted) this.setState({ movie: apiOutput });
     });
   }
 
   componentWillUnmount() {
-    //console.log("unmounted");
     this.mounted = false;
   }
 
+  handleGoBack = () => {
+    this.props.history.replace(this.goBackInfo);
+  };
+
   render() {
-    const BASE_URL = "https://image.tmdb.org"; /*https://www.themoviedb.org*/
-    //console.log(this.props.history);
+    const IMAGE_URL = "https://image.tmdb.org"; /*https://www.themoviedb.org*/
     return (
       this.mounted && (
         <>
           <br />
-          <button>
-            <Link to={JSON.parse(localStorage.getItem("movies")).returnPath}>
-              Go back
-            </Link>
-          </button>
+          <button onClick={this.handleGoBack}>Go back</button>
           <br />
           <br />
           <div className="details">
             <div>
-              <img
-                src={`${BASE_URL}/t/p/w400${this.state.movie.backdrop_path}`}
-                alt="No image in the data base"
-              />
+              {this.state.movie.backdrop_path ? (
+                <img
+                  src={`${IMAGE_URL}/t/p/w400${this.state.movie.backdrop_path}`}
+                  alt="No in the data base"
+                />
+              ) : (
+                <p>No image for this movie</p>
+              )}
             </div>
             <div>
               <h3>{`${this.state.movie.title} (${this.state.movie.release_date})`}</h3>
@@ -83,3 +87,20 @@ class MovieDetailsPage extends React.Component {
 }
 
 export default MovieDetailsPage;
+
+/*
+            <Link to={JSON.parse(localStorage.getItem("movies")).returnPath}>
+              Go back
+            </Link>
+            <Link to={this.props.location.state.from}>Go back</Link>
+*/
+/*
+            <Link
+              to={{
+                pathname: this.props.location.state.from.pathname,
+                search: this.props.location.search,
+              }}
+            >
+              Go back
+            </Link>
+*/
